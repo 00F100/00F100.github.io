@@ -116,8 +116,9 @@
                     config.data.datasets[i].hidden = false;
                 }
             }
-            window.myRadar.destroy();
-            window.myRadar = new Chart(document.getElementById("canvas"), config);
+            window.myRadar.update();
+            // window.myRadar.destroy();
+            // window.myRadar = new Chart(document.getElementById("canvas"), config);
         });
     };
     </script>
