@@ -1,18 +1,18 @@
-var EnemyCacti = me.Entity.extend({
+var EnemyFly = me.Entity.extend({
 
     init: function() {
         this._super(
             me.Entity,
             "init",
             [
-                639, 
-                410,
+                600, 
+                330,
                 {
-                    width : me.Math.random(200, 800),
-                    height : 50,
-                    shapes : [ new me.Rect(0, 0, 30, 90) ],
-                    framewidth: 30,
-                    frameheight: 50
+                    width : 75,
+                    height : 36,
+                    shapes : [ new me.Rect(0, 0, 75, 36) ],
+                    framewidth: 75,
+                    frameheight: 36
                 }
             ]
         );
@@ -22,9 +22,9 @@ var EnemyCacti = me.Entity.extend({
         // this.alwaysUpdate = true;
 
         this.renderable = new me.Sprite(0, 0, {
-            image: me.loader.getImage('enemyCacti'),
-            framewidth: 30,
-            frameheight: 90
+            image: me.loader.getImage('enemyFly'),
+            framewidth: 75,
+            frameheight: 36
         });
 
         this.body.collisionType = me.collision.types.ENEMY_OBJECT
