@@ -6,7 +6,7 @@ var PlayScreen = me.ScreenObject.extend( {
 
     onResetEvent: function() {
         me.game.world.addChild(new me.ColorLayer("background", "#ffe2b7", 0), 0);
-        // me.game.world.addChild(new Cacti(0, 100, 1000, 1), 1);
+        me.game.world.addChild(new Cacti(0, 100, 1000, 1), 1);
         me.game.world.addChild(new Plant(0, 500, 1000, 1), 1);
         me.game.world.addChild(new Cloud(0, 80, 1000, 1), 1);
         me.game.world.addChild(new HumanPlayer(), 20);
