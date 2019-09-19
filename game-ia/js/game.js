@@ -7,9 +7,18 @@ var game = {
 
     alive: true,
 
+    ia: {
+        alive: false,
+        reset: false
+    },
+
     human: {
         distance: 0,
         velocity: 0
+    },
+
+    ia: {
+        generation: 0
     },
 
     vel: {

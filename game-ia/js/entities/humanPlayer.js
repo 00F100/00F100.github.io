@@ -1,9 +1,14 @@
 var HumanPlayer = me.Entity.extend({
-    init : function () {
+    init : function (x = 30, y = 300, callbackColision) {
+
+        this.distance = 0;
+
+        this.callback = [];
+        this.callback['colision'] = callbackColision;
 
         this.startPoint = {
-            x: 30,
-            y: 300
+            x: x,
+            y: y
         };
 
         this.entityWidth = 74;
@@ -48,27 +53,11 @@ var HumanPlayer = me.Entity.extend({
         me.input.bindKey(me.input.KEY.SPACE, "jump");
     },
 
-    runJump: function() {
-        this.renderable.setCurrentAnimation("jump");
-        this.body.vel.y = -this.body.maxVel.y * me.timer.tick;
-        this.body.jumping = true;
-    },
-
-    runDuck: function() {
-        this.body.shapes[0].points[0].y = 20;
-        this.body.shapes[0].points[1].y = 20;
-        this.body.pos.y = 20;
-        this.renderable.setCurrentAnimation("duck");
-    },
-
-    runWalk: function() {
-        this.body.pos.y = 0;
-        this.body.shapes[0].points[0].y = 0;
-        this.body.shapes[0].points[1].y = 0;
-        this.renderable.setCurrentAnimation("walk");
-    },
-
     update : function (dt) {
+        var limit = this.body.ancestor.pos._x + this.body.width;
+        if(limit <= 15) {
+            me.game.world.removeChild(this);
+        }
         if(this.alive) {
             var self = this;
 
@@ -107,18 +96,30 @@ var HumanPlayer = me.Entity.extend({
                 return false;
                 break;
             case me.collision.types.ENEMY_OBJECT:
-                this.alive = false;
-                // this.hud.continue = false;
-                this.body.vel.x = 0;
-                this.body.vel.y = 0;
-                game.alive = false;
-                game.vel.x = 1;
-                me.state.change(me.state.GAMEOVER);
-                // game.vel.x = 0;
-                // this.renderable.setCurrentAnimation("die");
-                // me.audio.play("errou");
+                this.callback['colision'](this);
                 break;
         }
         return true;
+    },
+
+
+    runJump: function() {
+        this.renderable.setCurrentAnimation("jump");
+        this.body.vel.y = -this.body.maxVel.y * me.timer.tick;
+        this.body.jumping = true;
+    },
+
+    runDuck: function() {
+        this.body.shapes[0].points[0].y = 20;
+        this.body.shapes[0].points[1].y = 20;
+        this.body.pos.y = 20;
+        this.renderable.setCurrentAnimation("duck");
+    },
+
+    runWalk: function() {
+        this.body.pos.y = 0;
+        this.body.shapes[0].points[0].y = 0;
+        this.body.shapes[0].points[1].y = 0;
+        this.renderable.setCurrentAnimation("walk");
     }
 });
