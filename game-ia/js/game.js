@@ -9,7 +9,7 @@ var game = {
 
     ia: {
         alive: false,
-        reset: false
+        weightSeq: []
     },
 
     enemies: [],
@@ -20,7 +20,7 @@ var game = {
     },
 
     ia: {
-        generation: 0
+        generation: 1
     },
 
     vel: {
@@ -45,8 +45,8 @@ var game = {
 
     onload: function()
     {
-        // if (!me.video.init(game.res.width, game.res.height, {wrapper : "screen", scale : "auto"})) {
-        if (!me.video.init(game.res.width, game.res.height, {wrapper : "screen"})) {
+        if (!me.video.init(game.res.width, game.res.height, {wrapper : "screen", scale : "auto"})) {
+        // if (!me.video.init(game.res.width, game.res.height, {wrapper : "screen"})) {
             alert("Your browser does not support HTML5 canvas.");
             return;
         }
@@ -62,7 +62,8 @@ var game = {
         me.state.set(me.state.READY, new WelcomeScreen());
         me.state.set(me.state.PLAY, new PlayScreen());
         me.state.set(me.state.GAMEOVER, new Gameover());
-        me.state.set(me.state.NEURALNETWORK, new NeuralNetworkScreen());
+        me.state.set(me.state.NEURALNETWORK, new NeuralNetworkScreen(true));
+        me.state.set(me.state.NEURALNETWORK2, new NeuralNetworkScreen(false));
         me.state.change(me.state.READY);
     }
 };
